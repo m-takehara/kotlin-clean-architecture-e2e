@@ -16,6 +16,7 @@ class Configuration {
 
     object database : PropertyGroup() {
         val url by stringType
+        val schema by stringType
         val driver by stringType
         val user by stringType
         val password by stringType
