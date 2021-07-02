@@ -14,8 +14,16 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <kotlin.code.style>official</kotlin.code.style>
         <kotlin.compiler.jvmTarget>11</kotlin.compiler.jvmTarget>
-        <kotlin.version>1.5.0</kotlin.version>
-        <exposed.version>0.31.1</exposed.version>
+        <kotlin.version>1.5.10</kotlin.version>
+        <maven_compiler_plugin.version>3.1</maven_compiler_plugin.version>
+        <gauge_maven_plugin.version>1.4.3</gauge_maven_plugin.version>
+        <gauge.version>0.7.15</gauge.version>
+        <kluent.version>1.65</kluent.version>
+        <fuel.version>2.3.1</fuel.version>
+        <konfig.version>1.6.1.0</konfig.version>
+        <dbunit.version>2.7.0</dbunit.version>
+        <json_path.version>2.6.0</json_path.version>
+        <exposed.version>0.32.1</exposed.version>
         <postgres.version>42.2.20</postgres.version>
     </properties>
 
@@ -32,7 +40,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.1</version>
+                <version>${maven_compiler_plugin.version}</version>
                 <configuration>
                     <source>${kotlin.compiler.jvmTarget}</source>
                     <target>${kotlin.compiler.jvmTarget}</target>
@@ -72,7 +80,7 @@
             <plugin>
                 <groupId>com.thoughtworks.gauge.maven</groupId>
                 <artifactId>gauge-maven-plugin</artifactId>
-                <version>1.4.3</version>
+                <version>${gauge_maven_plugin.version}</version>
                 <executions>
                     <execution>
                         <phase>test</phase>
@@ -98,7 +106,7 @@
         <dependency>
             <groupId>com.thoughtworks.gauge</groupId>
             <artifactId>gauge-java</artifactId>
-            <version>0.7.15</version>
+            <version>${gauge.version}</version>
             <scope>test</scope>
         </dependency>
 
@@ -106,27 +114,34 @@
         <dependency>
             <groupId>org.amshove.kluent</groupId>
             <artifactId>kluent</artifactId>
-            <version>1.65</version>
+            <version>${kluent.version}</version>
             <scope>test</scope>
         </dependency>
         <!-- fuel: テスト実装のために使用する HTTP クライアント -->
         <dependency>
             <groupId>com.github.kittinunf.fuel</groupId>
             <artifactId>fuel</artifactId>
-            <version>2.3.1</version>
+            <version>${fuel.version}</version>
             <scope>test</scope>
         </dependency>
         <!-- konfig: テスト用のプロパティ(uat.properties)を読み取るためのライブラリ -->
         <dependency>
             <groupId>com.natpryce</groupId>
             <artifactId>konfig</artifactId>
-            <version>1.6.1.0</version>
+            <version>${konfig.version}</version>
         </dependency>
         <!-- dbunit: テスト実施前後の DB セットアップ用のライブラリ -->
         <dependency>
             <groupId>org.dbunit</groupId>
             <artifactId>dbunit</artifactId>
-            <version>2.7.0</version>
+            <version>${dbunit.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <!-- json-path: JSON 形式の String から値を取得するためのライブラリ -->
+        <dependency>
+            <groupId>com.jayway.jsonpath</groupId>
+            <artifactId>json-path</artifactId>
+            <version>${json_path.version}</version>
             <scope>test</scope>
         </dependency>
 

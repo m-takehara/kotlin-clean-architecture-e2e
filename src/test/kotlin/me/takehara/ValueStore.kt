@@ -36,3 +36,5 @@ object ValueStore {
     fun getHttpResponse() = ScenarioDataStore.get("httpResponse") as String
     fun putHttpResponse(value: String) = ScenarioDataStore.put("httpResponse", value)
 }
+
+typealias ResponseJson = String

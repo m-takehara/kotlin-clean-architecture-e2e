@@ -2,16 +2,16 @@ package me.takehara.database
 
 import me.takehara.Configuration
 import me.takehara.Configuration.Companion.config
+import me.takehara.getResourceFile
 import org.dbunit.database.DatabaseConnection
 import org.dbunit.dataset.csv.CsvDataSet
 import org.dbunit.operation.DatabaseOperation
 import org.jetbrains.exposed.sql.Database
-import java.nio.file.Paths
 import java.sql.DriverManager
 
-class DatabaseDriver {
-    val database: Database
-    val connection: DatabaseConnection
+object DatabaseDriver {
+    val dbunitConnection: DatabaseConnection
+    val exposedConnection: Database
 
     init {
         val url = config[Configuration.database.url]
@@ -22,15 +22,12 @@ class DatabaseDriver {
 
         Class.forName(driver)
         val c = DriverManager.getConnection(url, user, password)
-        database = Database.connect(url, driver, user, password)
-        connection = DatabaseConnection(c, schema)
+        dbunitConnection = DatabaseConnection(c, schema)
+
+        exposedConnection = Database.connect(url, driver, user, password)
     }
 
-    fun beforeSuite() {
-        val csvDataSet = Thread.currentThread().contextClassLoader
-            .getResource("before/suite/database/")!!
-            .let { Paths.get(it.toURI()) }
-            .let { CsvDataSet(it.toFile()) }
-        DatabaseOperation.CLEAN_INSERT.execute(connection, csvDataSet)
-    }
+    fun executeCleanInsert(csvFolderPath: String) = getResourceFile(csvFolderPath)
+        .let(::CsvDataSet)
+        .let { DatabaseOperation.CLEAN_INSERT.execute(dbunitConnection, it) }
 }
